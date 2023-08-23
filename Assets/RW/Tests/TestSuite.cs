@@ -26,4 +26,23 @@ public class TestSuite
         //7
         Object.Destroy(game.gameObject);
     }
+
+    [UnityTest]
+    public IEnumerator GameOverOccursOnAsteroidCollision()
+    {
+        GameObject gameGameObject =
+           MonoBehaviour.Instantiate(Resources.Load<GameObject>("Prefabs/Game"));
+        Game game = gameGameObject.GetComponent<Game>();
+        GameObject asteroid = game.GetSpawner().SpawnAsteroid();
+        //1
+        asteroid.transform.position = game.GetShip().transform.position;
+        //2
+        yield return new WaitForSeconds(0.1f);
+
+        //3
+        Assert.True(game.isGameOver);
+
+        Object.Destroy(game.gameObject);
+    }
+
 }
